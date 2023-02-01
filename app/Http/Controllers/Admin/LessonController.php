@@ -100,7 +100,7 @@ class LessonController extends Controller
     {
         // validate request
         $request->validate([
-            'title' => 'required|string|unique:lessons,title'.$lesson->id,
+            'title' => 'required|string|unique:lessons,title,'.$lesson->id,
         ]);
 
         // update lesson
