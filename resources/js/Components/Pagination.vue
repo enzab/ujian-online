@@ -1,11 +1,12 @@
 <template>
     <nav>
-        <ul :class="`pagination pagination-sm justify-content-${align} mb-0 mb-4`">
+        <ul :class="`pagination pagination-sm justify-content-${align} mb-0 mt-4`">
             <li :class="[
-                'page-item',
-                link.url == null ? 'disabled' : '',
-                link.active ? 'active' : '',
-            ]" v-for="(link, index) in links" :key="index">
+                    'page-item', 
+                    link.url == null ? 'disabled' : '',
+                    link.active ? 'active' : '',
+                ]" 
+                v-for="(link, index) in links" :key="index">
                 <Link 
                     class="page-link" 
                     :href="link.url === null ? '#' : link.url" 
@@ -18,8 +19,8 @@
 
 <script>
 
-    // import link
-    import { Link } from "@inertiajs/inertia-vue3";
+    //import Link
+    import { Link } from '@inertiajs/inertia-vue3';
 
     export default {
         props: {

@@ -1,42 +1,42 @@
 <template>
     <Head>
-        <title>Mata Pelajaran</title>
+        <title>Mata Pelajaran - Aplikasi Ujian Online</title>
     </Head>
     <div class="container-fluid mb-5 mt-5">
         <div class="row">
             <div class="col-md-8">
                 <div class="row">
                     <div class="col-md-3 col-12 mb-2">
-                        <Link href="/admin/lessons/create" class="btn btn-md btn-primary border-0 shadow w-100">
-                            <i class="fa fa-plus-circle"></i>
-                            Tambah
-                        </Link>
+                        <Link href="/admin/lessons/create" class="btn btn-md btn-primary border-0 shadow w-100" type="button"><i
+                            class="fa fa-plus-circle"></i>
+                        Tambah</Link>
                     </div>
                     <div class="col-md-9 col-12 mb-2">
-                        <form action="">
+                        <form>
                             <div class="input-group">
-                                <input type="text" name="" id="" placeholder="Masukkan kata kunci dan enter..." class="from-control border-0 shadow">
+                                <input type="text" class="form-control border-0 shadow" v-model="search" placeholder="masukkan kata kunci dan enter...">
                                 <span class="input-group-text border-0 shadow">
                                     <i class="fa fa-search"></i>
                                 </span>
                             </div>
                         </form>
                     </div>
+
                 </div>
             </div>
         </div>
-        <div class="row m-1">
+        <div class="row mt-1">
             <div class="col-md-12">
                 <div class="card border-0 shadow">
                     <div class="card-body">
-                        
+
                         <div class="table-responsive">
                             <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
                                 <thead class="thead-dark">
                                     <tr class="border-0">
-                                        <th class="border-0 rounded-start">No.</th>
+                                        <th class="border-0 rounded-start" style="width:5%">No.</th>
                                         <th class="border-0">Nama Mata Pelajaran</th>
-                                        <th class="border-0 rounded-end">Aksi</th>
+                                        <th class="border-0 rounded-end" style="width:15%">Aksi</th>
                                     </tr>
                                 </thead>
                                 <div class="mt-2"></div>
@@ -60,30 +60,60 @@
 </template>
 
 <script>
-
-    // import layout
+    //import layout
     import LayoutAdmin from '../../../Layouts/Admin.vue';
 
-    // import component pagination
+    //import component pagination
     import Pagination from '../../../Components/Pagination.vue';
 
-    // import Head and Link from Inertia
-    import { Head, Link } from "@inertiajs/inertia-vue3";
+    //import Heade and Link from Inertia
+    import {
+        Head,
+        Link
+    } from '@inertiajs/inertia-vue3';
+
+    // import ref from vue
+    import { ref } from "vue";
+
+    // import inertia adapter
+    import { Inertia } from "@inertiajs/inertia";
 
     export default {
-        // layout
+        //layout
         layout: LayoutAdmin,
 
-        // register component
+        //register component
         components: {
             Head,
             Link,
-            Pagination,
+            Pagination
         },
 
-        // props
+        //props
         props: {
             lessons: Object,
+        },
+
+        // inisialisasi composition API
+        setup() {
+            
+            // define state search
+            const search = ref('' || (new URL(document.location)).searchParams.get('q'));
+
+            // define method search
+            const handleSearch = () => {
+                Inertia.get('/admin/lessons', {
+
+                    // send params "q" with value from state "search"
+                    q: search.value,
+                });
+            }
+
+            // return
+            return {
+                search,
+                handleSearch,
+            }
         }
     }
 
