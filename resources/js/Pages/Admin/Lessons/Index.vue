@@ -46,6 +46,7 @@
                                         <td>{{ lesson.title }}</td>
                                         <td class="text-center">
                                             <Link :href="`/admin/lessons/${lesson.id}/edit`" class="btn btn-sm btn-info border-0 shadow me-2" type="button"><i class="fa fa-pencil-alt"></i></Link>
+                                            <button @click.prevent="destroy(lesson.id)" class="btn btn-sm btn-danger border-0"><i class="fa fa-trash"></i></button>
                                         </td>
                                     </tr>
                                 </tbody>
