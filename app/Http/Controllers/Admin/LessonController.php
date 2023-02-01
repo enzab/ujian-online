@@ -36,7 +36,7 @@ class LessonController extends Controller
      */
     public function create()
     {
-        //
+        return inertia('Admin/Lessons/Create');
     }
 
     /**
@@ -49,7 +49,7 @@ class LessonController extends Controller
     {
         // validate request
         $request->validate([
-            'title' => 'require|string|unique:lessons',
+            'title' => 'required|string|unique:lessons',
         ]);
 
         // create lesson

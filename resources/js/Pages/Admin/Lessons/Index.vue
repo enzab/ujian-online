@@ -45,7 +45,7 @@
                                         <td class="fw-bold text-center">{{ ++index + (lessons.current_page - 1) * lessons.per_page }}</td>
                                         <td>{{ lesson.title }}</td>
                                         <td class="text-center">
-                                            
+                                            <Link :href="`/admin/lessons/${lesson.id}/edit`" class="btn btn-sm btn-info border-0 shadow me-2" type="button"><i class="fa fa-pencil-alt"></i></Link>
                                         </td>
                                     </tr>
                                 </tbody>
