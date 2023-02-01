@@ -12,7 +12,7 @@
                         Tambah</Link>
                     </div>
                     <div class="col-md-9 col-12 mb-2">
-                        <form>
+                        <form @submit.prevent="handleSearch">
                             <div class="input-group">
                                 <input type="text" class="form-control border-0 shadow" v-model="search" placeholder="masukkan kata kunci dan enter...">
                                 <span class="input-group-text border-0 shadow">
@@ -73,11 +73,16 @@
         Link
     } from '@inertiajs/inertia-vue3';
 
-    // import ref from vue
-    import { ref } from "vue";
+    //import ref from vue
+    import {
+        ref
+    } from 'vue';
 
-    // import inertia adapter
-    import { Inertia } from "@inertiajs/inertia";
+    //import inertia adapter
+    import { Inertia } from '@inertiajs/inertia';
+
+    //import sweet alert2
+    import Swal from 'sweetalert2';
 
     export default {
         //layout
@@ -95,26 +100,55 @@
             lessons: Object,
         },
 
-        // inisialisasi composition API
+        //inisialisasi composition API
         setup() {
-            
-            // define state search
+
+            //define state search
             const search = ref('' || (new URL(document.location)).searchParams.get('q'));
 
-            // define method search
+            //define method search
             const handleSearch = () => {
                 Inertia.get('/admin/lessons', {
 
-                    // send params "q" with value from state "search"
+                    //send params "q" with value from state "search"
                     q: search.value,
                 });
             }
 
-            // return
+            //define method destroy
+            const destroy = (id) => {
+                Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: "Anda tidak akan dapat mengembalikan ini!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+
+                        Inertia.delete(`/admin/lessons/${id}`);
+
+                        Swal.fire({
+                            title: 'Deleted!',
+                            text: 'Pelajaran Berhasil Dihapus!.',
+                            icon: 'success',
+                            timer: 2000,
+                            showConfirmButton: false,
+                        });
+                    }
+                })
+            }
+
+            //return
             return {
                 search,
                 handleSearch,
+                destroy
             }
+
         }
     }
 
