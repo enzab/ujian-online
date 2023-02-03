@@ -13,6 +13,7 @@
                                 <div class="media-body ms-2 text-dark align-items-center d-none d-lg-block">
                                     <span class="mb-0 font-small fw-bold text-gray-900">{{ $page.props.auth.user.name }}</span>
                                 </div>
+                                <i class="ms-2 fa fa-caret-down"></i>
                             </div>
                         </a>
                         <div class="dropdown-menu dashboard-dropdown dropdown-menu-end mt-2 py-1 border-0 shadow">
@@ -47,3 +48,12 @@
     }
 
 </script>
+
+<style>
+
+.fa-caret-down {
+        color: black;
+        font-size: 16px !important;
+    }
+
+</style>
