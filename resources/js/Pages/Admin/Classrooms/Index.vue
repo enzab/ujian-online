@@ -12,7 +12,7 @@
                         Tambah</Link>
                     </div>
                     <div class="col-md-9 col-12 mb-2">
-                        <form>
+                        <form @submit.prevent="handleSearch">
                             <div class="input-group">
                                 <input type="text" class="form-control border-0 shadow" v-model="search" placeholder="masukkan kata kunci dan enter...">
                                 <span class="input-group-text border-0 shadow">
