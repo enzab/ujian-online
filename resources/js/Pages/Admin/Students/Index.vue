@@ -2,7 +2,9 @@
     <Head>
         <title>Siswa &#8212; Aplikasi Ujian Online</title>
     </Head>
-    <div class="container-fluid mb-5 mt-5">
+    <div class="container-fluid mb-5">
+        <h3 class="mt-3">Data Siswa</h3>
+        <hr>
         <div class="row">
             <div class="col-md-8">
                 <div class="row">
@@ -17,9 +19,9 @@
                         </div>
                     </div>
                     <div class="col-md-7 col-12 mb-2">
-                        <form action="">
+                        <form action="" @submit.prevent="handleSearch">
                             <div class="input-group">
-                                <input type="text" class="form-control border-0 shadow" placeholder="masukkan kata kunci dan enter...">
+                                <input type="text" class="form-control border-0 shadow" v-model="search" placeholder="masukkan kata kunci dan enter...">
                                 <span class="input-group-text border-0 shadow">
                                     <i class="fa fa-search"></i>
                                 </span>
@@ -57,6 +59,7 @@
                                         <td class="text-center">{{ student.password }}</td>
                                         <td class="text-center">
                                             <Link :href="`/admin/students/${student.id}/edit`" class="btn btn-sm btn-info border-0 shadow me-2" type="button"><i class="fa fa-pencil-alt"></i></Link>
+                                            <button class="btn btn-sm btn-danger broder-0" @click.prevent="destroy(student.id)"><i class="fa fa-trash"></i></button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -82,8 +85,16 @@
     // import Head and Link from Inertia
     import { Head, Link } from "@inertiajs/inertia-vue3";
 
+    // import ref from vue
+    import { ref } from 'vue';
+
+    // import inertia adapter
+    import { Inertia } from '@inertiajs/inertia';
+
+    import Swal from 'sweetalert2';
+
     export default {
-        // layout
+        // import layout
         layout: LayoutAdmin,
 
         // register component
@@ -96,6 +107,57 @@
         // props
         props: {
             students: Object,
+        },
+
+        //inisialisasi composition API
+        setup() {
+
+            //define state search
+            const search = ref('' || (new URL(document.location)).searchParams.get('q'));
+
+            //define method search
+            const handleSearch = () => {
+                Inertia.get('/admin/students', {
+
+                    //send params "q" with value from state "search"
+                    q: search.value,
+                });
+            }
+
+            //define method destroy
+            const destroy = (id) => {
+                Swal.fire({
+                        title: 'Apakah Anda yakin?',
+                        text: "Anda tidak akan dapat mengembalikan ini!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+
+                            Inertia.delete(`/admin/students/${id}`);
+
+                            Swal.fire({
+                                title: 'Deleted!',
+                                text: 'Siswa Berhasil Dihapus!.',
+                                icon: 'success',
+                                timer: 2000,
+                                showConfirmButton: false,
+                            });
+                        }
+                    })
+            }
+
+            //return
+            return {
+                search,
+                handleSearch,
+                destroy,
+            }
+
         }
     }
 </script>
