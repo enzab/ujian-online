@@ -56,7 +56,7 @@
                                         <td class="text-center">{{ student.gender }}</td>
                                         <td class="text-center">{{ student.password }}</td>
                                         <td class="text-center">
-
+                                            <Link :href="`/admin/students/${student.id}/edit`" class="btn btn-sm btn-info border-0 shadow me-2" type="button"><i class="fa fa-pencil-alt"></i></Link>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -74,6 +74,7 @@
 
     // import layout
     import LayoutAdmin from '../../../Layouts/Admin.vue';
+    
 
     // import component pagination
     import Pagination from '../../../Components/Pagination.vue';
