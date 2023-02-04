@@ -8,12 +8,12 @@
                 <ul class="navbar-nav align-items-center">
                     <li class="nav-item dropdown ms-lg-3">
                         <a href="#" role="button" data-bs-toggle="dropdown" class="nav-link dropdown-toggle pt-1 px-0" aria-expanded="false">
-                            <div class="media d-flex align-items-center">
+                            <div class="media d-flex align-items-center text-gray-500">
                                 <img :src="`https://ui-avatars.com/api/?name=${$page.props.auth.user.name}&amp;background=4e73df&amp;color=ffffff&amp;size=100`" alt="Image Placeholder" class="avatar rounded-circle">
                                 <div class="media-body ms-2 text-dark align-items-center d-none d-lg-block">
-                                    <span class="mb-0 font-small fw-bold text-gray-900">{{ $page.props.auth.user.name }}</span>
+                                    <span class="mb-0 font-small fw-bold ">{{ $page.props.auth.user.name }}</span>
                                 </div>
-                                <i class="ms-2 fa fa-caret-down"></i>
+                                <i class="ms-2 fa fa-caret-down text-gray-500"></i>
                             </div>
                         </a>
                         <div class="dropdown-menu dashboard-dropdown dropdown-menu-end mt-2 py-1 border-0 shadow">

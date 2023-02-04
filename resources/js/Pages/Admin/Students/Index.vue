@@ -1,6 +1,6 @@
 <template>
     <Head>
-        <title>Siswa</title>
+        <title>Siswa &#8212; Aplikasi Ujian Online</title>
     </Head>
     <div class="container-fluid mb-5 mt-5">
         <div class="row">
@@ -19,7 +19,7 @@
                     <div class="col-md-7 col-12 mb-2">
                         <form action="">
                             <div class="input-group">
-                                <input type="text" class="form-control border-0 shadow" placeholder="Masukkan kata kunci dan enter...">
+                                <input type="text" class="form-control border-0 shadow" placeholder="masukkan kata kunci dan enter...">
                                 <span class="input-group-text border-0 shadow">
                                     <i class="fa fa-search"></i>
                                 </span>
@@ -37,30 +37,29 @@
                             <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
                                 <thead class="thead-dark">
                                     <tr class="border-0">
-                                        <th class="border-0 rounded-start">No.</th>
-                                        <th class="border-0">Nisn</th>
+                                        <th class="border-0 rounded-start" style="width: 15px">No.</th>
+                                        <th class="border-0" style="width: 5%">Nisn</th>
                                         <th class="border-0">Nama</th>
-                                        <th class="border-0">Kelas</th>
-                                        <th class="border-0">Jenis Kelamin</th>
-                                        <th class="border-0">Password</th>
-                                        <th class="border-0 rounded-end">Aksi</th>
+                                        <th class="border-0" style="width: 5%">Kelas</th>
+                                        <th class="border-0" style="width: 5%">Jenis Kelamin</th>
+                                        <th class="border-0" style="width: 20%">Password</th>
+                                        <th class="border-0 rounded-end" style="width: 15px">Aksi</th>
                                     </tr>
                                 </thead>
-                                <div class="mt-2">
-                                    <tbody>
-                                        <tr v-for="(student, index) in students.data" :key="index">
-                                            <td class="text-center">{{ ++index + (students.current_page - 1) * students.per_page }}</td>
-                                            <td class="text-center">{{ student.nisn }}</td>
-                                            <td class="text-center">{{ student.name }}</td>
-                                            <td class="text-center">{{ student.classroom.title }}</td>
-                                            <td class="text-center">{{ student.gender }}</td>
-                                            <td class="text-center">{{ student.password }}</td>
-                                            <td class="text-center">
+                                <div class="mt-2"></div>
+                                <tbody>
+                                    <tr v-for="(student, index) in students.data" :key="index">
+                                        <td class="text-center">{{ ++index + (students.current_page - 1) * students.per_page }}</td>
+                                        <td class="text-center">{{ student.nisn }}</td>
+                                        <td class="text-center">{{ student.name }}</td>
+                                        <td class="text-center">{{ student.classroom.title }}</td>
+                                        <td class="text-center">{{ student.gender }}</td>
+                                        <td class="text-center">{{ student.password }}</td>
+                                        <td class="text-center">
 
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                         <Pagination :links="students.links" align="end"/>

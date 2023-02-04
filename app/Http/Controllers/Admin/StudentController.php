@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Classroom;
-use Illuminate\Cache\RedisTaggedCache;
+
 
 class StudentController extends Controller
 {
@@ -59,7 +59,7 @@ class StudentController extends Controller
             'name' => 'required|string|max:255',
             'nisn' => 'required|unique:students',
             'gender' => 'required|string',
-            'password' => 'required|confifrmed',
+            'password' => 'required|confirmed',
             'classroom_id' => 'required'
         ]);
 
