@@ -8,6 +8,7 @@ use App\Models\Lesson;
 use App\Models\Classroom;
 use App\Models\Exam;
 use App\Models\Question;
+use App\Models\Student;
 
 class ExamController extends Controller
 {
@@ -40,7 +41,12 @@ class ExamController extends Controller
      */
     public function create()
     {
-        //
+        // get exams
+        $exams = Exam::all();
+
+        return inertia('Admin/Exams/Create', [
+            'exams' => $exams,
+        ]);
     }
 
     /**
@@ -51,7 +57,32 @@ class ExamController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validate request
+        $request->validate([
+            'title' => 'required',
+            'lesson_id' => 'required|integer',
+            'classroom_id' => 'required|integer',
+            'duration' => 'required|integer',
+            'description' => 'required',
+            'random_question' => 'required',
+            'random_answer' => 'required',
+            'show_answer' => 'required',
+        ]);
+
+        // create exam
+        Exam::create([
+            'title' => $request->title,
+            'lesson_id' => $request->lesson_id,
+            'classroom_id' => $request->classroom_id,
+            'duration' => $request->duration,
+            'description' => $request->description,
+            'random_question' => $request->random_question,
+            'random_answer' => $request->random_answer,
+            'show_answer' => $request->show_answer,
+        ]);
+
+        // redirect
+        return redirect()->route('admin.exams.index');
     }
 
     /**
@@ -73,7 +104,13 @@ class ExamController extends Controller
      */
     public function edit($id)
     {
-        //
+        // get student
+        $student = Student::findOrFail($id);
+
+        // get classrooms
+        $classrooms = Classroom::all();
+
+        
     }
 
     /**

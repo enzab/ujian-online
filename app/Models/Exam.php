@@ -16,7 +16,8 @@ class Exam extends Model
         'duration',
         'description',
         'random_question',
-        'show_answer'
+        'random_answer',
+        'show_answer',
 
     ];
 
