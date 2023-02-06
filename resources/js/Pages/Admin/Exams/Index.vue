@@ -12,9 +12,9 @@
                         </Link>
                     </div>
                     <div class="col-md-9 col-12 mb-2">
-                        <form action="">
+                        <form @submit.prevent="handleSearch" action="">
                             <div class="input-group">
-                                <input type="text" name="" id="" class="form-control border-0 shadow" placeholder="masukkan kata kunci dan enter...">
+                                <input type="text" v-model="search" class="form-control border-0 shadow" placeholder="masukkan kata kunci dan enter...">
                                 <span class="input-group-text border-0 shadow">
                                     <i class="fa fa-search"></i>
                                 </span>
@@ -74,6 +74,12 @@
     // import Head and Link from Inertia
     import { Head, Link } from "@inertiajs/inertia-vue3";
 
+    // import ref from vue
+    import { ref } from "vue";
+
+    // import inertia adapter
+    import { Inertia } from "@inertiajs/inertia";
+
     export default {
 
         // layout
@@ -89,6 +95,27 @@
         // props
         props: {
             exams: Object,
+        },
+
+        // inisialisasi composition API
+        setup() {
+
+            // define state search
+            const search = ref('' || (new URL(document.location)).searchParams.get('q'));
+
+            // define method search
+            const handleSearch = () => {
+                Inertia.get('/admin/exams', {
+
+                    // send params "q" with value from state "search"
+                });
+            }
+
+            // return
+            return {
+                search,
+                handleSearch
+            }
         }
     }
 
