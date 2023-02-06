@@ -32,13 +32,15 @@ Route::prefix('admin')->group(function() {
         // route resource classrooms
         Route::resource('/classrooms', \App\Http\Controllers\Admin\ClassroomController::class, ['as' => 'admin']);
 
-        // route resource students
-        Route::resource('/students', \App\Http\Controllers\Admin\StudentController::class, ['as' => 'admin']);
+        
 
         // route student import
         Route::get('/students/import', [\App\Http\Controllers\Admin\StudentController::class, 'import'])->name('admin.students.import');
 
         // route student store import
         Route::post('/students/import', [\App\Http\Controllers\Admin\StudentController::class, 'storeImport'])->name('admin.student.storeImport');
+
+        // route resource students
+        Route::resource('/students', \App\Http\Controllers\Admin\StudentController::class, ['as' => 'admin']);
     });
 });

@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Models\Exam;
 use App\Models\Lesson;
 use App\Models\Classroom;
-use App\Models\Exam;
-use App\Models\Question;
-use App\Models\Student;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class ExamController extends Controller
 {
@@ -21,9 +19,8 @@ class ExamController extends Controller
     {
         // get exams
         $exams = Exam::when(request()->q, function($exams) {
-            $exams = $exams->where('name', 'like', '%'. request()
-            ->q. '%');
-        })->with('classroom', 'lesson', 'question')->latest()->paginate(5);
+            $exams = $exams->where('title', 'like', '%'. request()->q.'%');
+        })->with('lesson', 'classroom', 'questions')->latest()->paginate(5);
 
         // append query string to pagination links
         $exams->appends(['q' => request()->q]);
@@ -41,11 +38,16 @@ class ExamController extends Controller
      */
     public function create()
     {
-        // get exams
-        $exams = Exam::all();
+        // get lessons
+        $lessons = Lesson::all();
 
+        // get classrooms
+        $classrooms = Classroom::all();
+
+        // render with inertia
         return inertia('Admin/Exams/Create', [
-            'exams' => $exams,
+            'lessons' => $lessons,
+            'classrooms' => $classrooms
         ]);
     }
 
@@ -65,7 +67,7 @@ class ExamController extends Controller
             'duration' => 'required|integer',
             'description' => 'required',
             'random_question' => 'required',
-            'random_answer' => 'required',
+            'randwom_answer' => 'required',
             'show_answer' => 'required',
         ]);
 
@@ -93,7 +95,16 @@ class ExamController extends Controller
      */
     public function show($id)
     {
-        //
+        // get exam
+        $exam = Exam::with('lesson', 'classroom')->findOrFail($id);
+
+        // get relation questions with pagination
+        $exam->setRelation('questions', $exam->question()->paginate(5));
+
+        // render with inertia
+        return inertia('Admin/Exams/Show', [
+            'exam' => $exam,
+        ]);
     }
 
     /**
@@ -104,13 +115,21 @@ class ExamController extends Controller
      */
     public function edit($id)
     {
-        // get student
-        $student = Student::findOrFail($id);
+        // get exam
+        $exam = Exam::findOrFail($id);
+
+        // get lesson
+        $lessons = Lesson::all();
 
         // get classrooms
         $classrooms = Classroom::all();
 
-        
+        // render with inertia
+        return inertia('Admin/Exam/Edit', [
+            'exam' => $exam,
+            'lessons' => $lessons,
+            'classrooms' => $classrooms,
+        ]);
     }
 
     /**
@@ -120,9 +139,34 @@ class ExamController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Exam $exam)
     {
-        //
+        // validate request
+        $request->validate([
+            'title' => 'required',
+            'lesson_id' => 'required|integer',
+            'classroom_id' => 'required|integer',
+            'duration' => 'required|integer',
+            'description' => 'required',
+            'random_question' => 'required',
+            'randwom_answer' => 'required',
+            'show_answer' => 'required',
+        ]);
+
+        // update exam
+        $exam->update([
+            'title' => $request->title,
+            'lesson_id' => $request->lesson_id,
+            'classroom_id' => $request->classroom_id,
+            'duration' => $request->duration,
+            'description' => $request->description,
+            'random_question' => $request->random_question,
+            'random_answer' => $request->random_answer,
+            'show_answer' => $request->show_answer,
+        ]);
+
+        // redirect
+        return redirect()->route('admin.exams.index');
     }
 
     /**
@@ -133,6 +177,13 @@ class ExamController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // get exam
+        $exam = Exam::findOrFail($id);
+
+        // delete exam
+        $exam->delete();
+
+        // redirect
+        return redirect()->route('admin.exams.index');
     }
 }

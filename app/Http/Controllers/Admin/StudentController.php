@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Imports\StudentImport;
+use App\Imports\StudentsImport;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Classroom;
 use Maatwebsite\Excel\Facades\Excel;
+
 
 
 class StudentController extends Controller
@@ -183,7 +184,7 @@ class StudentController extends Controller
         ]);
 
         // import data
-        Excel::import(new StudentImport(), $request->file('file'));
+        Excel::import(new StudentsImport(), $request->file('file'));
 
         // redirect
         return redirect()->route('admin.students.index');

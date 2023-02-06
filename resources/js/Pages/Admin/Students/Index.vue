@@ -14,7 +14,7 @@
                                 <Link href="/admin/students/create" type="button" class="btn btn-md btn-primary border-0 shadow w-100"><i class="fa fa-plus-circle"></i> Tambah</Link>
                             </div>
                             <div class="col-md-6 col-12 mb-2">
-                                <Link class="btn btn-md btn-success border-0 shadow w-100 text-white"><i class="fa fa-file-excel"></i> Import</Link>
+                                <Link href="/admin/students/import" class="btn btn-md btn-success border-0 shadow w-100 text-white"><i class="fa fa-file-excel"></i> Import</Link>
                             </div>
                         </div>
                     </div>
