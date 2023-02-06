@@ -1,0 +1,95 @@
+<template>
+    <Head>
+        <title>Ujian - Aplikasi Ujian Online</title>
+    </Head>
+    <div class="container-fluid mb-5 mt-5">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-3 col-12 mb-2">
+                        <Link class="btn btn-md btn-primary border-0 shadow w-100" type="button" href="/admin/exams/create">
+                            <i class="fa fa-plus-circle"></i> Tambah
+                        </Link>
+                    </div>
+                    <div class="col-md-9 col-12 mb-2">
+                        <form action="">
+                            <div class="input-group">
+                                <input type="text" name="" id="" class="form-control border-0 shadow" placeholder="masukkan kata kunci dan enter...">
+                                <span class="input-group-text border-0 shadow">
+                                    <i class="fa fa-search"></i>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-mt-12">
+                <div class="card border-0 shadow">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
+                                <thead class="thead-dark">
+                                    <tr class="border-0">
+                                        <th class="border-0 rounded-start" style="width:5%">No.</th>
+                                        <th class="border-0">Ujian</th>
+                                        <th class="border-0">Pelajaran</th>
+                                        <th class="border-0">Kelas</th>
+                                        <th class="border-0">Jumlah Soal</th>
+                                        <th class="border-0 rounded-end" style="width:15%">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <div class="mt-2"></div>
+                                <tbody>
+                                    <tr v-for="(exam, index) in exams.data" :key="index">
+                                        <td class="fw-bold text-center">{{ ++index + (exams.current_page - 1) * exams.per_page }}</td>
+                                        <td>{{ exam.title }}</td>
+                                        <td>{{ exam.lesson.title }}</td>
+                                        <td class="text-center">{{ exam.classroom.title }}</td>
+                                        <td class="text-center">{{ exam.questions.length }}</td>
+                                        <td class="text-center">
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <Pagination :links="exams.links" align="end" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+
+    // import layout
+    import LayoutAdmin from '../../../Layouts/Admin.vue';
+
+    // import component pagination
+    import Pagination from '../../../Components/Pagination.vue';
+
+    // import Head and Link from Inertia
+    import { Head, Link } from "@inertiajs/inertia-vue3";
+
+    export default {
+
+        // layout
+        layout: LayoutAdmin,
+
+        // register component
+        components: {
+            Head,
+            Link,
+            Pagination
+        },
+
+        // props
+        props: {
+            exams: Object,
+        }
+    }
+
+</script>
