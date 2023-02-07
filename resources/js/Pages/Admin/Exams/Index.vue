@@ -51,6 +51,7 @@
                                         <td class="text-center">
                                             <Link class="btn btn-sm btn-primary border-0 shadow me-2" type="button" :href="`/admin/exams/${exam.id}`"><i class="fa fa-plus-circle"></i></Link>
                                             <Link class="btn btn-sm btn-info border-0 shadow me-2" type="button" :href="`/admin/exams/${exam.id}/edit`"><i class="fa fa-pencil-alt"></i></Link>
+                                            <button @click.prevent="destroy(exam.id)" class="btn btn-sm btn-danger border-0"><i class="fa fa-trash"></i></button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -81,6 +82,9 @@
     // import inertia adapter
     import { Inertia } from "@inertiajs/inertia";
 
+    // import sweet alert2
+    import Swal from 'sweetalert2';
+
     export default {
 
         // layout
@@ -109,13 +113,42 @@
                 Inertia.get('/admin/exams', {
 
                     // send params "q" with value from state "search"
+                    q: search.value,
                 });
+            }
+
+            // define method destroy
+            const destroy = (id) => {
+                Swal.fire({
+                    title: 'Apakah Anda Yakin?',
+                    text: "Anda tidak akan dapat mengembalikan ini!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Delete it!'
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+
+                        Inertia.delete(`/admin/exams/${id}`);
+
+                        Swal.fire({
+                            title: 'Deleted!',
+                            text: 'Ujian Berhasil Dihapus!',
+                            icon: 'success',
+                            timer: 2000,
+                            showConfirmButton: false,
+                        })
+                    }
+                })
             }
 
             // return
             return {
                 search,
-                handleSearch
+                handleSearch,
+                destroy
             }
         }
     }
