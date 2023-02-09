@@ -75,13 +75,15 @@
                                             </ol>
                                         </td>
                                         <td class="text-center">
-                                            <Link :href="`/admin/exams/${exam.id}/questions/${question.id}/edit`" class="btn btn-sm btn-info border-0 shadow me-2" type="button"><i class="fa fa-pencil-alt"></i></Link>
+                                            <Link :href="`/admin/exams/${exam.id}/questions/${question.id}/edit`" class="btn btn-sm btn-info border-0 shadow me-2"
+                                                type="button"><i class="fa fa-pencil-alt"></i></Link>
                                             <button @click.prevent="destroy(exam.id, question.id)" class="btn btn-sm btn-danger border-0"><i class="fa fa-trash"></i></button>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
+                        <Pagination :links="exam.questions.links" align="end" />
                     </div>
                 </div>
 
@@ -94,7 +96,7 @@
     //import layout
     import LayoutAdmin from '../../../Layouts/Admin.vue';
 
-    // import component pagination
+    //import component pagination
     import Pagination from '../../../Components/Pagination.vue';
 
     //import Heade and Link from Inertia
@@ -112,7 +114,7 @@
         components: {
             Head,
             Link,
-            Pagination,
+            Pagination
         },
 
         //props

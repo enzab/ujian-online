@@ -191,7 +191,7 @@ class ExamController extends Controller
 
     public function createQuestion(Exam $exam) {
         // render with inertia
-        return inertia('Admin/Question/Create', [
+        return inertia('Admin/Questions/Create', [
             'exam' => $exam,
         ]);
     }
