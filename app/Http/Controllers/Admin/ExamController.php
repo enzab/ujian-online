@@ -196,21 +196,59 @@ class ExamController extends Controller
         ]);
     }
 
-    public function storeQuestion(Request $request, Exam $exam) {
+    public function storeQuestion(Request $request, Exam $exam)
+    {
+        //validate request
+        $request->validate([
+            'question'          => 'required',
+            'option_1'          => 'required',
+            'option_2'          => 'required',
+            'option_3'          => 'required',
+            'option_4'          => 'required',
+            'option_5'          => 'required',
+            'answer'            => 'required',
+        ]);
+        
+        //create question
+        Question::create([
+            'exam_id'           => $exam->id,
+            'question'          => $request->question,
+            'option_1'          => $request->option_1,
+            'option_2'          => $request->option_2,
+            'option_3'          => $request->option_3,
+            'option_4'          => $request->option_4,
+            'option_5'          => $request->option_5,
+            'answer'            => $request->answer,
+        ]);
+        
+        //redirect
+        return redirect()->route('admin.exams.show', $exam->id);
+    }
+
+    public function editQuestion(Exam $exam, Question $question) {
+
+        // render with inertia
+        return inertia('Admin/Questions/Edit', [
+            'exam' => $exam,
+            'question' => $question,
+        ]);
+    }
+
+    public function updateQuestion(Request $request, Exam $exam, Question $question) {
+
         // validate request
         $request->validate([
             'question' => 'required',
-            'options_1' => 'required',
-            'options_2' => 'required',
-            'options_3' => 'required',
-            'options_4' => 'required',
-            'options_5' => 'required',
+            'option_1' => 'required',
+            'option_2' => 'required',
+            'option_3' => 'required',
+            'option_4' => 'required',
+            'option_5' => 'required',
             'answer' => 'required',
         ]);
 
-        // create question
-        Question::create([
-            'exam_id' => $exam->id,
+        // update question
+        $question->update([
             'question' => $request->question,
             'option_1' => $request->option_1,
             'option_2' => $request->option_2,
