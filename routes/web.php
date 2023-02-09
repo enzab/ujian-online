@@ -49,5 +49,11 @@ Route::prefix('admin')->group(function() {
 
         // custom route for storeQuestion Exam
         Route::post('/exams/{exam}/questions/store', [\App\Http\Controllers\Admin\ExamController::class, 'storeQuestion'])->name('admin.exams.storeQuestion');
+
+        // custom route for editQuestion exam
+        Route::get('/exams/{exam}/questions/{question}/edit', [\App\Http\Controllers\Admin\ExamController::class, 'editQuestion'])->name('admin.exams.editQuestion');
+
+        // custom route for updateQuestion Exam
+        Route::put('/exams/{exam}/questions/{question}/update', [\App\Http\Controllers\Admin\ExamController::class, 'updateQuestion'])->name('admin.exams.updateQuestion');
     });
 });
