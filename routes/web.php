@@ -55,5 +55,8 @@ Route::prefix('admin')->group(function() {
 
         // custom route for updateQuestion Exam
         Route::put('/exams/{exam}/questions/{question}/update', [\App\Http\Controllers\Admin\ExamController::class, 'updateQuestion'])->name('admin.exams.updateQuestion');
+
+        // custom route for destroyQuestion Exam
+        Route::delete('/exams/{exam}/questions/{question}/destory', [\App\Http\Controllers\Admin\ExamController::class, 'destroyQuestion'])->name('admin.exams.destroyQuestion');
     });
 });

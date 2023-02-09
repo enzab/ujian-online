@@ -261,4 +261,13 @@ class ExamController extends Controller
         // redirect
         return redirect()->route('admin.exams.show', $exam->id);
     }
+
+    public function destroyQuestion(Exam $exam, Question $question) {
+        
+        // delete question
+        $question->delete();
+
+        // redirect
+        return redirect()->route('admin.exams.show', $exam->id);
+    }
 }
