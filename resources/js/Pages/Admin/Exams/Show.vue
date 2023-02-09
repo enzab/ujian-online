@@ -105,6 +105,12 @@
         Link
     } from '@inertiajs/inertia-vue3';
 
+    // import inertia adapter
+    import { Inertia } from "@inertiajs/inertia";
+
+    // import sweet alert2
+    import Swal from 'sweetalert2';
+
     export default {
 
         //layout
@@ -122,6 +128,42 @@
             errors: Object,
             exam: Object,
         },
+
+        // inisialisasi composition API
+        setup() {
+
+            // define method destroy
+            const destroy = (exam_id, question_id) => {
+                Swal.fire({
+                    title: 'Apakah Anda Yakin?',
+                    text: "Anda tidak akan dapat mengembalikan ini!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+
+                        Inertia.delete(`/admin/exams/${exam_id}/questions/${question_id}/destory`);
+
+                        Swal.fire({
+                            title: 'Deleted!',
+                            text: 'Soal Ujian Berhasil Dihapus',
+                            icon: 'success',
+                            timer: 2000,
+                            showConfirmButton: false,
+                        });
+                    }
+                })
+            }
+
+            // return
+            return {
+                destroy
+            }
+        }
 
     }
 
