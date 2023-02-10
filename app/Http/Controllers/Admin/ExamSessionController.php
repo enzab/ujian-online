@@ -85,8 +85,9 @@ class ExamSessionController extends Controller
         // get exam_session
         $exam_session = ExamSession::with('exam.classroom', 'exam.lesson')->findOrFail($id);
 
-        // get relation exam_group with pagination
-        $exam_session->setRelation('exam_groups', $exam_session->exam_group()->with('studen.classroom')->paginate(5));
+        // get relation exam_groups with pagination
+        $exam_session->setRelation('exam_groups', $exam_session->exam_groups()->with('studen.classroom')->paginate(5));
+
 
         // render with inertia
         return inertia('Admin/ExamSessions/Show', [
