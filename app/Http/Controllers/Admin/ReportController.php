@@ -24,7 +24,7 @@ class ReportController extends Controller
     public function filter(Request $request) {
 
         $this->validate($request, [
-            'exam_id' => 'requored',
+            'exam_id' => 'required',
         ]);
 
         // get all exams
