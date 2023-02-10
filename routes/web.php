@@ -65,5 +65,8 @@ Route::prefix('admin')->group(function() {
         // route exam storeImport
         Route::post('/exams/{exam}/questions/import', [\App\Http\Controllers\Admin\ExamController::class, 'storeImport'])->name('admin.exam.questionStoreImport');
 
+        // route resource exam_sessions
+        Route::resource('/exam_sessions', \App\Http\Controllers\Admin\ExamSessionController::class, ['as' => 'admin']);
+
     });
 });
