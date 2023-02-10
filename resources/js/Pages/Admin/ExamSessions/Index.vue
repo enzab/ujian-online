@@ -60,6 +60,7 @@
                                         <td class="text-center">
                                             <Link class="btn btn-sm btn-primary border-0 shadow me-2" type="button" :href="`/admin/exam_sessions/${exam_session.id}`"><i class="fa fa-plus-circle"></i></Link>
                                             <Link class="btn btn-sm btn-info border-0 shadow me-2" type="button" :href="`/admin/exam_sessions/${exam_session.id}/edit`"><i class="fa fa-pencil-alt"></i></Link>
+                                            <button @click.prevent="destroy(exam_session.id)" class="btn btn-sm btn-danger border-0"><i class="fa fa-trash"></i></button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -89,6 +90,10 @@
 
     // import inertia adapter
     import { Inertia } from "@inertiajs/inertia";
+
+    // import sweet alert2
+    import Swal from 'sweetalert2';
+import { id } from 'date-fns/locale';
 
     export default {
 
@@ -121,10 +126,37 @@
                 });
             }
 
+            // define method destroy
+            const destroy = (id) => {
+                Swal.fire({
+                    title: 'Apakah Anda Yakin?',
+                    text: "Anda tidak akan dapat mengembalikan ini!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        Inertia.delete(`/admin/exam_sessions/${id}`);
+
+                        Swal.fire({
+                            title: 'Delete',
+                            text: 'Sesi Ujian Berhasil Dihapus',
+                            icon: 'success',
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
+                    }
+                })
+            }
+
             // return
             return {
                 search,
-                handleSearch
+                handleSearch,
+                destroy
             }
         }
     }
