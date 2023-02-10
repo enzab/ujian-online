@@ -7,7 +7,7 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
-class StudentsImport implements ToModel
+class StudentsImport implements ToModel, WithHeadingRow, WithValidation
 {
     /**
     * @param array $row
@@ -21,11 +21,11 @@ class StudentsImport implements ToModel
             'name' => $row['name'],
             'password' => $row['password'],
             'gender' => $row['gender'],
-            'classrom_id' => (int) $row['classrom_id'],
+            'classroom_id' => (int) $row['classroom_id'],
         ]);
     }
 
-    public function rule(): array
+    public function rules(): array
     {
         return [
             'nisn' => 'unique:students,nisn',

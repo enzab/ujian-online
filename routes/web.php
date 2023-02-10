@@ -33,10 +33,10 @@ Route::prefix('admin')->group(function() {
         Route::resource('/classrooms', \App\Http\Controllers\Admin\ClassroomController::class, ['as' => 'admin']);
 
         // route student import
-        Route::get('/students/import', [\App\Http\Controllers\Admin\StudentController::class, 'import'])->name('admin.students.import');
+        Route::get('/students/import', [\App\Http\Controllers\Admin\StudentController::class, 'import']);
 
         // route student store import
-        Route::post('/students/import', [\App\Http\Controllers\Admin\StudentController::class, 'storeImport'])->name('admin.student.storeImport');
+        Route::post('/students/import', [\App\Http\Controllers\Admin\StudentController::class, 'storeImport']);
 
         // route resource students
         Route::resource('/students', \App\Http\Controllers\Admin\StudentController::class, ['as' => 'admin']);
@@ -58,5 +58,12 @@ Route::prefix('admin')->group(function() {
 
         // custom route for destroyQuestion Exam
         Route::delete('/exams/{exam}/questions/{question}/destory', [\App\Http\Controllers\Admin\ExamController::class, 'destroyQuestion'])->name('admin.exams.destroyQuestion');
+
+        // route exam import
+        Route::get('/exams/{exam}/questions/import', [\App\Http\Controllers\Admin\ExamController::class, 'import'])->name('admin.exam.questionImport');
+
+        // route exam storeImport
+        Route::post('/exams/{exam}/questions/import', [\App\Http\Controllers\Admin\ExamController::class, 'storeImport'])->name('admin.exam.questionStoreImport');
+
     });
 });
