@@ -12,7 +12,7 @@
                         </Link>
                     </div>
                     <div class="col-md-0 col-12 mb-2">
-                        <form action="">
+                        <form @submit.prevent="handleSearch" action="">
                             <div class="input-group">
                                 <input type="text" class="form-control border-0 shadow" placeholder="masukkan kata kunci dan enter...">
                                 <span class="input-group-text border-0 shadow">
@@ -84,6 +84,12 @@
     // import Head and Link from Inertia
     import { Head, Link } from "@inertiajs/inertia-vue3";
 
+    // import ref from vue
+    import { ref } from "vue";
+
+    // import inertia adapter
+    import { Inertia } from "@inertiajs/inertia";
+
     export default {
 
         // layout
@@ -98,6 +104,28 @@
 
         props: {
             exam_sessions: Object,
+        },
+
+        // inisialisasi composistion API
+        setup() {
+            
+            // define state search
+            const search = ref('' || (new URL(document.location)).searchParams.get('q'));
+
+            // defind method search
+            const handleSearch = () => {
+                Inertia.get('/admin/exam_sessions', {
+
+                    // send params "q" with value from state "search"
+                    q: search.value,
+                });
+            }
+
+            // return
+            return {
+                search,
+                handleSearch
+            }
         }
     }
 
