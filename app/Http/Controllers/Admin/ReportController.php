@@ -52,6 +52,6 @@ class ReportController extends Controller
         return inertia('Admin/Reports/Index', [
             'exams' => $exams,
             'grades' => $grades
-        ])
+        ]);
     }
 }
