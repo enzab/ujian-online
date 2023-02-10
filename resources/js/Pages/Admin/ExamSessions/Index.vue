@@ -11,7 +11,7 @@
                             <i class="fa fa-plus-circle"></i> Tambah
                         </Link>
                     </div>
-                    <div class="col-md-0 col-12 mb-2">
+                    <div class="col-md-9 col-12 mb-2">
                         <form @submit.prevent="handleSearch" action="">
                             <div class="input-group">
                                 <input type="text" class="form-control border-0 shadow" placeholder="masukkan kata kunci dan enter...">
